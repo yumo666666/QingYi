@@ -1,0 +1,10 @@
+.tools/
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+.env
+.env.*
+**/settings.json
+/发布版*/

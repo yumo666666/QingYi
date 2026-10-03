@@ -1,0 +1,298 @@
+<Window x:Class="QingYi.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="pack://application:,,,/Assets/AppIcon.ico"
+        Title="轻译" Width="590" Height="820" MinWidth="540" MinHeight="630"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResizeWithGrip"
+        AllowsTransparency="True" Background="Transparent" Closing="Window_Closing">
+  <Window.Resources>
+    <Style x:Key="ToggleStyle" TargetType="CheckBox">
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="CheckBox">
+            <Grid Width="38" Height="22">
+              <Border x:Name="Track" CornerRadius="11" Background="#FFE3E5E9" />
+              <Ellipse x:Name="Thumb" Width="16" Height="16" Fill="White" HorizontalAlignment="Left" Margin="3" />
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsChecked" Value="True"><Setter TargetName="Track" Property="Background" Value="#FF7464E8" /><Setter TargetName="Thumb" Property="HorizontalAlignment" Value="Right" /></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Track" Property="Opacity" Value="0.5" /></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="FieldLabel" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="11" /><Setter Property="Foreground" Value="#FF747780" />
+      <Setter Property="Margin" Value="0,0,0,5" />
+    </Style>
+    <Style x:Key="RoundedInputStyle" TargetType="TextBox">
+      <Setter Property="Height" Value="36" />
+      <Setter Property="Padding" Value="8,4" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Foreground" Value="#FF34323C" />
+      <Setter Property="Background" Value="White" />
+      <Setter Property="BorderBrush" Value="#FFDAD6E7" />
+      <Setter Property="BorderThickness" Value="2.25" />
+      <Setter Property="CaretBrush" Value="#FF7464E8" />
+      <Setter Property="SelectionBrush" Value="#FFDDD8FA" />
+      <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="TextBox">
+            <Border x:Name="InputFrame" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+              <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="InputFrame" Property="BorderBrush" Value="#FFD8D3EA" /></Trigger>
+              <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="InputFrame" Property="BorderBrush" Value="#FFA99CF0" /><Setter TargetName="InputFrame" Property="Background" Value="#FFFEFDFF" /></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter TargetName="InputFrame" Property="Opacity" Value="0.55" /></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="RoundedPasswordStyle" TargetType="PasswordBox">
+      <Setter Property="Height" Value="36" />
+      <Setter Property="Padding" Value="8,4" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Foreground" Value="#FF34323C" />
+      <Setter Property="Background" Value="White" />
+      <Setter Property="BorderBrush" Value="#FFDAD6E7" />
+      <Setter Property="BorderThickness" Value="2.25" />
+      <Setter Property="CaretBrush" Value="#FF7464E8" />
+      <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="PasswordBox">
+            <Border x:Name="InputFrame" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+              <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="InputFrame" Property="BorderBrush" Value="#FFD8D3EA" /></Trigger>
+              <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="InputFrame" Property="BorderBrush" Value="#FFA99CF0" /><Setter TargetName="InputFrame" Property="Background" Value="#FFFEFDFF" /></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter TargetName="InputFrame" Property="Opacity" Value="0.55" /></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="ActionButtonStyle" TargetType="Button">
+      <Setter Property="Height" Value="38" />
+      <Setter Property="MinWidth" Value="100" />
+      <Setter Property="Padding" Value="16,0" />
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="FontWeight" Value="Medium" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="ButtonFrame" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="9" SnapsToDevicePixels="True">
+              <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" />
+            </Border>
+            <ControlTemplate.Triggers>
+              <MultiTrigger><MultiTrigger.Conditions><Condition Property="IsMouseOver" Value="True" /><Condition Property="Tag" Value="Secondary" /></MultiTrigger.Conditions><Setter TargetName="ButtonFrame" Property="Background" Value="#FFF0EEFA" /><Setter TargetName="ButtonFrame" Property="BorderBrush" Value="#FFDCD6F3" /><Setter Property="Foreground" Value="#FF5F53C8" /></MultiTrigger>
+              <MultiTrigger><MultiTrigger.Conditions><Condition Property="IsMouseOver" Value="True" /><Condition Property="Tag" Value="Primary" /></MultiTrigger.Conditions><Setter TargetName="ButtonFrame" Property="Background" Value="#FF695ADB" /><Setter TargetName="ButtonFrame" Property="BorderBrush" Value="#FF695ADB" /></MultiTrigger>
+              <MultiTrigger><MultiTrigger.Conditions><Condition Property="IsPressed" Value="True" /><Condition Property="Tag" Value="Secondary" /></MultiTrigger.Conditions><Setter TargetName="ButtonFrame" Property="Background" Value="#FFE9E6F7" /></MultiTrigger>
+              <MultiTrigger><MultiTrigger.Conditions><Condition Property="IsPressed" Value="True" /><Condition Property="Tag" Value="Primary" /></MultiTrigger.Conditions><Setter TargetName="ButtonFrame" Property="Background" Value="#FF584BC7" /><Setter TargetName="ButtonFrame" Property="BorderBrush" Value="#FF584BC7" /></MultiTrigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter TargetName="ButtonFrame" Property="Opacity" Value="0.55" /></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="WindowChromeButtonStyle" TargetType="Button">
+      <Setter Property="Width" Value="30" />
+      <Setter Property="Height" Value="30" />
+      <Setter Property="Margin" Value="2,0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Foreground" Value="#FF777B83" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="ChromeButtonFrame" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" SnapsToDevicePixels="True">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ChromeButtonFrame" Property="Background" Value="#FFF1EFFF" /><Setter TargetName="ChromeButtonFrame" Property="BorderBrush" Value="#FFE6E2F5" /><Setter Property="Foreground" Value="#FF6354D2" /></Trigger>
+              <Trigger Property="IsPressed" Value="True"><Setter TargetName="ChromeButtonFrame" Property="Background" Value="#FFE9E6FA" /></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter TargetName="ChromeButtonFrame" Property="Opacity" Value="0.45" /></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="ToolbarScaleSliderStyle" TargetType="Slider">
+      <Setter Property="Height" Value="24" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Slider">
+            <Grid Height="24">
+              <Border Height="4" Background="#FFE9E7F0" CornerRadius="2" VerticalAlignment="Center" />
+              <Track x:Name="PART_Track" IsDirectionReversed="{TemplateBinding IsDirectionReversed}">
+                <Track.DecreaseRepeatButton>
+                  <RepeatButton Command="Slider.DecreaseSmall" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" Focusable="False">
+                    <RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="#FF7464E8" CornerRadius="2" /></ControlTemplate></RepeatButton.Template>
+                  </RepeatButton>
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                  <Thumb Width="16" Height="16" Focusable="False">
+                    <Thumb.Template>
+                      <ControlTemplate TargetType="Thumb">
+                        <Ellipse x:Name="ThumbEllipse" Fill="White" Stroke="#FF7464E8" StrokeThickness="2" />
+                        <ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ThumbEllipse" Property="Stroke" Value="#FF6354D2" /></Trigger></ControlTemplate.Triggers>
+                      </ControlTemplate>
+                    </Thumb.Template>
+                  </Thumb>
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                  <RepeatButton Command="Slider.IncreaseSmall" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" Focusable="False">
+                    <RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent" /></ControlTemplate></RepeatButton.Template>
+                  </RepeatButton>
+                </Track.IncreaseRepeatButton>
+              </Track>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </Window.Resources>
+  <Border Margin="12" CornerRadius="14" Background="#FFF8F8F9" BorderBrush="#2730343B" BorderThickness="1.25">
+    <Border.Effect><DropShadowEffect Color="#40252A33" BlurRadius="24" ShadowDepth="4" Opacity="0.17" /></Border.Effect>
+    <Grid>
+      <Grid.RowDefinitions><RowDefinition Height="62" /><RowDefinition Height="*" /><RowDefinition Height="68" /></Grid.RowDefinitions>
+
+      <Border Grid.Row="0" CornerRadius="14,14,0,0" Background="White" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+        <Grid Margin="20,0,12,0">
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Border Width="31" Height="31" CornerRadius="9" Background="#FFF1EFFF">
+              <TextBlock Text="译" Foreground="#FF7464E8" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+              <TextBlock Text="轻译" FontSize="15" FontWeight="SemiBold" />
+              <TextBlock Text="选中即译，截图也能读" FontSize="10" Foreground="#FF9699A0" Margin="0,1,0,0" />
+            </StackPanel>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Style="{StaticResource WindowChromeButtonStyle}" Click="Minimize_Click" ToolTip="缩到系统托盘" AutomationProperties.Name="缩到系统托盘">
+              <Path Data="M 1,6 L 11,6" Width="12" Height="12" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" StrokeThickness="1.5" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+            </Button>
+            <Button Style="{StaticResource WindowChromeButtonStyle}" Click="CloseToTray_Click" ToolTip="关闭到系统托盘" AutomationProperties.Name="关闭到系统托盘">
+              <Path Data="M 2,2 L 10,10 M 10,2 L 2,10" Width="12" Height="12" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" StrokeThickness="1.5" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+            </Button>
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="18,15,18,10">
+          <Grid Margin="2,0,2,14">
+            <StackPanel>
+              <TextBlock Text="偏好设置" FontSize="19" FontWeight="SemiBold" />
+              <TextBlock Text="启动方式与翻译服务" FontSize="11" Foreground="#FF858991" Margin="0,4,0,0" />
+            </StackPanel>
+            <Border HorizontalAlignment="Right" VerticalAlignment="Center" Background="#FFF0F8F3" CornerRadius="10" Padding="9,5">
+              <StackPanel Orientation="Horizontal"><Ellipse x:Name="RunStateDot" Width="6" Height="6" Fill="#FF48A977" Margin="0,0,6,0" /><TextBlock x:Name="RunStateText" Text="后台待命" FontSize="10" Foreground="#FF438962" /></StackPanel>
+            </Border>
+          </Grid>
+
+          <Border Background="White" CornerRadius="10" BorderBrush="#FFDEE0E6" BorderThickness="2.25" Padding="15" Margin="0,0,0,11">
+            <StackPanel>
+              <DockPanel Margin="0,0,0,12">
+                <TextBlock Text="运行方式" FontSize="12" FontWeight="SemiBold" />
+                <TextBlock DockPanel.Dock="Right" Text="更改后点击保存生效" FontSize="10" Foreground="#FF9A9DA4" VerticalAlignment="Center" />
+              </DockPanel>
+              <Grid Margin="0,0,0,10">
+                <StackPanel><TextBlock Text="开机自启" FontSize="12" /><TextBlock Text="登录 Windows 后自动启动" FontSize="10" Foreground="#FF92959C" Margin="0,3,0,0" /></StackPanel>
+                <CheckBox x:Name="StartWithWindowsToggle" Style="{StaticResource ToggleStyle}" HorizontalAlignment="Right" />
+              </Grid>
+              <Border Height="2.25" Background="#FFE4E5EA" Margin="0,0,0,10" />
+              <Grid>
+                <StackPanel><TextBlock Text="启动后缩到后台" FontSize="12" /><TextBlock Text="轻译继续在系统托盘运行" FontSize="10" Foreground="#FF92959C" Margin="0,3,0,0" /></StackPanel>
+                <CheckBox x:Name="StartMinimizedToggle" Style="{StaticResource ToggleStyle}" HorizontalAlignment="Right" />
+              </Grid>
+            </StackPanel>
+          </Border>
+
+          <Border Background="White" CornerRadius="10" BorderBrush="#FFDEE0E6" BorderThickness="2.25" Padding="15" Margin="0,0,0,11">
+            <StackPanel>
+              <DockPanel Margin="0,0,0,12">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                  <TextBlock Text="AI 服务" FontSize="12" FontWeight="SemiBold" />
+                  <Border Background="#FFF2F0FF" CornerRadius="4" Padding="6,2" Margin="8,0,0,0"><TextBlock Text="SiliconFlow" FontSize="9" Foreground="#FF695BD3" /></Border>
+                </StackPanel>
+                <TextBlock DockPanel.Dock="Right" Text="同一 Key 供文字与图片翻译使用" FontSize="9" Foreground="#FF9699A0" VerticalAlignment="Center" />
+              </DockPanel>
+              <TextBlock Text="API URL" Style="{StaticResource FieldLabel}" /><TextBox x:Name="ApiUrlBox" Style="{StaticResource RoundedInputStyle}" Margin="0,0,0,9" />
+              <TextBlock Text="API KEY" Style="{StaticResource FieldLabel}" /><PasswordBox x:Name="ApiKeyBox" Style="{StaticResource RoundedPasswordStyle}" Margin="0,0,0,9" />
+              <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="10" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"><TextBlock Text="文字翻译模型" Style="{StaticResource FieldLabel}" /><TextBox x:Name="TextModelBox" Style="{StaticResource RoundedInputStyle}" /></StackPanel>
+                <StackPanel Grid.Column="2"><TextBlock Text="图片翻译模型 · 多模态" Style="{StaticResource FieldLabel}" /><TextBox x:Name="ImageModelBox" Style="{StaticResource RoundedInputStyle}" /></StackPanel>
+              </Grid>
+              <Grid Margin="0,11,0,0">
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="启用模型思考" FontSize="12" />
+                  <TextBlock Text="关闭通常更快返回译文，仅对 Qwen3.5-9B 生效" FontSize="10" Foreground="#FF92959C" Margin="0,3,0,0" />
+                </StackPanel>
+                <CheckBox x:Name="EnableThinkingToggle" Style="{StaticResource ToggleStyle}" HorizontalAlignment="Right" />
+              </Grid>
+            </StackPanel>
+          </Border>
+
+          <Border Background="White" CornerRadius="10" BorderBrush="#FFDEE0E6" BorderThickness="2.25" Padding="15" Margin="0,0,0,11">
+            <StackPanel>
+              <Grid Margin="0,0,0,10">
+                <StackPanel>
+                  <TextBlock Text="工具栏大小" FontSize="12" FontWeight="SemiBold" />
+                  <TextBlock Text="拖动滑块预览，保存后应用到文字和图片工具栏" FontSize="10" Foreground="#FF92959C" Margin="0,3,0,0" />
+                </StackPanel>
+                <TextBlock x:Name="ToolbarScaleLabel" Text="100%" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="11" FontWeight="SemiBold" Foreground="#FF7464E8" />
+              </Grid>
+              <Border x:Name="ToolbarPreviewHost" Height="84" Background="#FFF7F6FA" BorderBrush="#FFE2DDEE" BorderThickness="2.25" CornerRadius="8" Margin="0,0,0,6" />
+              <Slider x:Name="ToolbarScaleSlider" Style="{StaticResource ToolbarScaleSliderStyle}" Minimum="0.75" Maximum="1.4" Value="1" IsSnapToTickEnabled="False" SmallChange="0.01" LargeChange="0.05" />
+              <Grid Margin="0,2,0,0">
+                <TextBlock Text="较小" FontSize="9" Foreground="#FF999CA4" />
+                <TextBlock Text="较大" FontSize="9" Foreground="#FF999CA4" HorizontalAlignment="Right" />
+              </Grid>
+            </StackPanel>
+          </Border>
+
+          <Border Background="#FFF4F4F6" CornerRadius="9" Padding="14,11">
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+              <Border Grid.Column="0" Background="White" CornerRadius="5" Padding="7,4" Margin="0,0,9,0" VerticalAlignment="Center"><TextBlock Text="快捷操作" FontSize="10" Foreground="#FF676B74" /></Border>
+              <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="划词后点「翻译」" FontSize="10" />
+                <TextBlock Text="Shift + 右键截图，再点「图片翻译」" FontSize="10" Foreground="#FF7D8189" Margin="0,4,0,0" />
+              </StackPanel>
+              <Border Grid.Column="2" Background="White" BorderBrush="#FFE2E3E6" BorderThickness="1" CornerRadius="4" Padding="6,3" Margin="8,0,4,0" VerticalAlignment="Center"><TextBlock Text="SHIFT" FontSize="9" Foreground="#FF777B83" /></Border>
+              <Border Grid.Column="3" Background="White" BorderBrush="#FFE2E3E6" BorderThickness="1" CornerRadius="4" Padding="6,3" VerticalAlignment="Center"><TextBlock Text="右键" FontSize="9" Foreground="#FF777B83" /></Border>
+            </Grid>
+          </Border>
+        </StackPanel>
+      </ScrollViewer>
+
+      <Border Grid.Row="2" CornerRadius="0,0,14,14" Background="White" BorderBrush="#FFDEE0E6" BorderThickness="0,2.25,0,0">
+        <Grid Margin="18,0">
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center" MaxWidth="245" HorizontalAlignment="Left">
+            <Ellipse x:Name="StatusDot" Width="7" Height="7" Fill="#FFB4B7BE" Margin="0,0,7,0" VerticalAlignment="Center" />
+            <TextBlock x:Name="StatusText" Text="尚未测试连接" FontSize="10" Foreground="#FF858991" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button x:Name="TestButton" Content="测试连接" Tag="Secondary" Style="{StaticResource ActionButtonStyle}" Click="TestConnection_Click" Margin="0,0,8,0" Background="#FFF7F6FA" BorderBrush="#FFE8E4F3" Foreground="#FF59556A" />
+            <Button x:Name="SaveButton" Content="保存设置" Tag="Primary" Style="{StaticResource ActionButtonStyle}" Click="SaveSettings_Click" MinWidth="108" Background="#FF7464E8" BorderBrush="#FF7464E8" Foreground="White" FontWeight="SemiBold" />
+          </StackPanel>
+        </Grid>
+      </Border>
+    </Grid>
+  </Border>
+</Window>

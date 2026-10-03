@@ -1,0 +1,40 @@
+<Application x:Class="QingYi.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Startup="Application_Startup"
+             Exit="Application_Exit"
+             ShutdownMode="OnExplicitShutdown">
+  <Application.Resources>
+    <Color x:Key="InkColor">#FF24262B</Color>
+    <SolidColorBrush x:Key="Ink" Color="{StaticResource InkColor}" />
+    <SolidColorBrush x:Key="Muted" Color="#FF737781" />
+    <SolidColorBrush x:Key="Line" Color="#FFE4E6EA" />
+    <SolidColorBrush x:Key="Paper" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Canvas" Color="#FFF6F7F8" />
+    <SolidColorBrush x:Key="Accent" Color="#FF7464E8" />
+    <Style TargetType="TextBlock">
+      <Setter Property="Foreground" Value="{StaticResource Ink}" />
+      <Setter Property="FontFamily" Value="Segoe UI, Microsoft YaHei UI" />
+    </Style>
+    <Style TargetType="TextBox">
+      <Setter Property="FontFamily" Value="Segoe UI, Microsoft YaHei UI" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="Padding" Value="10,8" />
+      <Setter Property="BorderBrush" Value="{StaticResource Line}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Background" Value="White" />
+      <Setter Property="Foreground" Value="{StaticResource Ink}" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style TargetType="Button">
+      <Setter Property="FontFamily" Value="Segoe UI, Microsoft YaHei UI" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="Padding" Value="14,8" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="BorderBrush" Value="{StaticResource Line}" />
+      <Setter Property="Background" Value="White" />
+      <Setter Property="Foreground" Value="{StaticResource Ink}" />
+    </Style>
+  </Application.Resources>
+</Application>
