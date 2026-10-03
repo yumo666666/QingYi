@@ -40,3 +40,7 @@ dotnet publish .\轻译\轻译.csproj -c Release -r win-x64 --self-contained fal
 - 多屏与混合 DPI 已按每屏捕获、虚拟桌面坐标裁剪实现，但尚未在所有缩放组合和显示器拓扑逐一验证。
 
 完整需求、界面草图和验收范围见 [项目说明书](./项目说明书.md)。
+
+## 许可证
+
+本项目采用 MIT License，详见 [LICENSE](./LICENSE)。
